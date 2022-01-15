@@ -10,7 +10,7 @@ public class Trapped extends DamageSource {
     }
 
     public static DamageSource causeTrapDamage(Entity entity){
-        return (new EntityDamageSource("trapperdamage", entity)).bypassArmor().bypassMagic();
+        return (new EntityDamageSource("trapperdamage", entity));
     }
 
 
