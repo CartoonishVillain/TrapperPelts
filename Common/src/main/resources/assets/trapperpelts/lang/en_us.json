@@ -1,0 +1,7 @@
+{
+  "item.trapperpelts.beartrapitem": "Bear Trap",
+  "item.trapperpelts.beartrapdesc": "Places a bear trap that will snap on anything",
+  "item.trapperpelts.beartrapdesc2": "that walks into it after 4 seconds after placement.",
+  "entity.trapperpelts.beartrap": "Bear Trap",
+  "death.attack.trapperdamage": "%1$s stepped into a bear trap"
+}

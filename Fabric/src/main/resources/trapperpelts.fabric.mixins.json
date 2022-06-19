@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.cartoonishvillain.trapperpelts.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+      "OnDeathMixin"
+    ],
+    "client": [
+    ],
+    "injectors": {
+      "defaultRequire": 1
+    }
+  }
+  

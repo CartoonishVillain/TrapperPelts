@@ -1,0 +1,38 @@
+{
+    "schemaVersion": 1,
+    "id": "trapperpelts",
+    "version": "${version}",
+
+  "name": "Trapper Pelts",
+  "description": "As the nights get colder, you get more and more desperate to find leather to keep warm...",
+  "authors": [
+    "Cartoonish Villain"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "MIT",
+  
+    "environment": "*",
+    "entrypoints": {
+      "main": [
+        "com.cartoonishvillain.trapperpelts.FabricTraps"
+      ],
+      "client": [
+        "com.cartoonishvillain.trapperpelts.RenderManager"
+      ]
+    },
+    "mixins": [
+      "trapperpelts.mixins.json"
+    ],
+  
+    "depends": {
+      "fabricloader": ">=0.14",
+      "fabric": "*",
+      "minecraft": "1.19.x",
+      "java": ">=17"
+    }
+  }
+  
