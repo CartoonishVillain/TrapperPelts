@@ -99,6 +99,11 @@ public class BearTrap extends Mob {
     @Override
     public void tick() {
         super.tick();
+
+        if(tickCount == 5) {
+            setPersistenceRequired();
+        }
+
         if(primingTime > 0){
             primingTime--;
         }
