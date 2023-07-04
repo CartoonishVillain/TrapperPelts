@@ -19,6 +19,6 @@ public class ExampleMod implements ModInitializer {
 
         // Some code like events require special initialization from the
         // loader specific code.
-        ItemTooltipCallback.EVENT.register(CommonTrap::onItemTooltip);
+//        ItemTooltipCallback.EVENT.register(CommonTrap::onItemTooltip);
     }
 }

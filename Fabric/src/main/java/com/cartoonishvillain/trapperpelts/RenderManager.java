@@ -11,6 +11,6 @@ public class RenderManager implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         EntityModelLayerRegistry.registerModelLayer(BearTrapModel.BEARTRAPLAYERLOCATION, BearTrapModel::createBodyLayer);
-        EntityRendererRegistry.register(Register.BEARTRAP, RenderBearTrap::new);
+//        EntityRendererRegistry.register(Register.BEARTRAP, RenderBearTrap::new);
     }
 }

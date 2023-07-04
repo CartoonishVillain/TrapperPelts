@@ -8,6 +8,6 @@ public class FabricTraps implements ModInitializer {
     @Override
     public void onInitialize() {
         CommonTrap.init();
-        Register.init();
+//        Register.init();
     }
 }

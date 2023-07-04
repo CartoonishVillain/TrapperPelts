@@ -24,11 +24,11 @@ public class TrapItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if(!playerIn.level.isClientSide) {
+        if(!playerIn.level().isClientSide) {
             playerIn.getCooldowns().addCooldown(this, 100);
-            BearTrap bearTrap = new BearTrap(Services.PLATFORM.getTrapEntityType(), playerIn.level);
+            BearTrap bearTrap = new BearTrap(Services.PLATFORM.getTrapEntityType(), playerIn.level());
             bearTrap.setPos(playerIn.getX(), playerIn.getY(), playerIn.getZ());
-            playerIn.level.addFreshEntity(bearTrap);
+            playerIn.level().addFreshEntity(bearTrap);
             itemstack.shrink(1);
         }
         return InteractionResultHolder.sidedSuccess(itemstack, worldIn.isClientSide());

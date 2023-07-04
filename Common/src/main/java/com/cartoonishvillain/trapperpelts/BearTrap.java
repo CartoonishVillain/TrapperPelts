@@ -1,5 +1,7 @@
 package com.cartoonishvillain.trapperpelts;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -10,6 +12,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -21,6 +24,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+
+import static com.cartoonishvillain.trapperpelts.TrappedDamageType.TRAPPED;
 
 public class BearTrap extends Mob {
     private static final EntityDataAccessor<Boolean> BOOLEAN_TRIGGERED = SynchedEntityData.defineId(BearTrap.class, EntityDataSerializers.BOOLEAN);
@@ -84,11 +89,15 @@ public class BearTrap extends Mob {
 
     @Override
     public void push(Entity victim) {
-        if(!getTriggered() && primingTime <= 0) {
-            victim.hurt(Trapped.causeTrapDamage(victim), 22.5f);
+        if(!getTriggered() && primingTime <= 0 && !this.level().isClientSide) {
+            Holder.Reference<DamageType> damageType = this.level().registryAccess()
+                    .registryOrThrow(Registries.DAMAGE_TYPE)
+                    .getHolderOrThrow(TRAPPED);
+
+            victim.hurt(new DamageSource(damageType), 22.5f);
             setTriggered(true);
             setTriggerCount(getTriggerCount()+1);
-            this.level.playSound(null, this, SoundEvents.EVOKER_FANGS_ATTACK, SoundSource.HOSTILE, 1, 1);
+            this.level().playSound(null, this, SoundEvents.EVOKER_FANGS_ATTACK, SoundSource.HOSTILE, 1, 1);
 
             if(victim.isAlive() && victim instanceof LivingEntity) {
                 ((LivingEntity) victim).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 70, 1));
@@ -112,7 +121,7 @@ public class BearTrap extends Mob {
             resetTime--;
             //If this causes the reset time to be 0...
             if(resetTime > 0){
-                this.level.playSound(null, this, SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.5f, 1);
+                this.level().playSound(null, this, SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.5f, 1);
                 this.setTriggered(false);
             }
         }
@@ -138,7 +147,7 @@ public class BearTrap extends Mob {
 
     @Override
     protected InteractionResult mobInteract(Player p_21472_, InteractionHand p_21473_) {
-        if(!p_21472_.level.isClientSide && p_21473_.equals(InteractionHand.MAIN_HAND) && timeAfterTrigger >= 20 && !(getTriggerCount() >= 3) && getTriggered()){
+        if(!p_21472_.level().isClientSide && p_21473_.equals(InteractionHand.MAIN_HAND) && timeAfterTrigger >= 20 && !(getTriggerCount() >= 3) && getTriggered()){
             resetTime = 10;
         }
 

@@ -27,6 +27,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public EntityType<BearTrap> getTrapEntityType() {
-        return Register.BEARTRAP;
+        return null;
+//        return Register.BEARTRAP;
     }
 }

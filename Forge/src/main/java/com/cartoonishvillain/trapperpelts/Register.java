@@ -23,7 +23,7 @@ public class Register {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
     }
-    public static final RegistryObject<Item> BEARTRAPITEM = ITEMS.register("beartrapitem", () -> new TrapItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), Component.translatable("item.trapperpelts.beartrapdesc").withStyle(ChatFormatting.RED)));
+    public static final RegistryObject<Item> BEARTRAPITEM = ITEMS.register("beartrapitem", () -> new TrapItem(new Item.Properties(), Component.translatable("item.trapperpelts.beartrapdesc").withStyle(ChatFormatting.RED)));
 
     public static final RegistryObject<EntityType<BearTrap>> BEARTRAP = ENTITY_TYPES.register("beartrap", () -> EntityType.Builder.of(BearTrap::new, MobCategory.MONSTER).sized(0.8f, 1f).build(new ResourceLocation(MOD_ID, "beartrap").toString()));
 
