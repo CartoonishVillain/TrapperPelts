@@ -36,10 +36,10 @@ public class BearTrap extends Mob {
     int primingTime = 80;
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(BOOLEAN_TRIGGERED, false);
-        this.entityData.define(TRIGGERCOUNT, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(BOOLEAN_TRIGGERED, false);
+        builder.define(TRIGGERCOUNT, 0);
     }
 
     protected BearTrap(EntityType<? extends Mob> p_21368_, Level p_21369_) {

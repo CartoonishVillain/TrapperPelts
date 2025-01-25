@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class RenderBearTrap extends MobRenderer<BearTrap, BearTrapModel<BearTrap>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Constants.MOD_ID, "textures/entity/beartrap.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/entity/beartrap.png");
 
     public RenderBearTrap(EntityRendererProvider.Context p_174008_) {
         super(p_174008_, new BearTrapModel<>(p_174008_.bakeLayer(BearTrapModel.BEARTRAPLAYERLOCATION)), 0.5f);

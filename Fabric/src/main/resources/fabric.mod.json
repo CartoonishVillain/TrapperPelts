@@ -1,38 +1,34 @@
 {
     "schemaVersion": 1,
-    "id": "trapperpelts",
+    "id": "${mod_id}",
     "version": "${version}",
-
-  "name": "Trapper Pelts",
-  "description": "As the nights get colder, you get more and more desperate to find leather to keep warm...",
-  "authors": [
-    "Cartoonish Villain"
-  ],
-  "contact": {
-    "homepage": "",
-    "sources": ""
-  },
-
-  "license": "MIT",
-  
+    "name": "${mod_name}",
+    "description": "${description}",
+    "authors": [
+        "${mod_author}"
+    ],
+    "contact": {
+    },
+    "license": "${license}",
+    "icon": "${mod_id}.png",
     "environment": "*",
     "entrypoints": {
-      "main": [
-        "com.cartoonishvillain.trapperpelts.FabricTraps"
-      ],
-      "client": [
-        "com.cartoonishvillain.trapperpelts.RenderManager"
-      ]
+        "main": [
+            "com.cartoonishvillain.trapperpelts.FabricTraps"
+        ],
+        "client": [
+            "com.cartoonishvillain.trapperpelts.RenderManager"
+        ]
     },
     "mixins": [
-      "trapperpelts.mixins.json"
+        "${mod_id}.mixins.json",
+        "${mod_id}.fabric.mixins.json"
     ],
-  
     "depends": {
-      "fabricloader": ">=0.14",
-      "fabric": "*",
-      "minecraft": "1.19.x",
-      "java": ">=17"
+        "fabricloader": ">=${fabric_loader_version}",
+        "fabric-api": "*",
+        "minecraft": "${minecraft_version}",
+        "java": ">=${java_version}"
     }
-  }
+}
   

@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityDimensions;
@@ -12,19 +13,30 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 
+import java.util.function.Supplier;
+
 import static com.cartoonishvillain.trapperpelts.Constants.MOD_ID;
 
 public class Register {
-//
-//    public static final Item BEARTRAPITEM = new TrapItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), Component.translatable("item.trapperpelts.beartrapdesc").withStyle(ChatFormatting.RED), Component.translatable("item.trapperpelts.beartrapdesc2").withStyle(ChatFormatting.RED));
-//
-//    public static final EntityType<BearTrap> BEARTRAP = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(MOD_ID, "beartrap"), FabricEntityTypeBuilder.create(MobCategory.MONSTER, BearTrap::new).dimensions(EntityDimensions.fixed(0.8f, 1)).build());
-//
-//    public static void init() {
-//        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "beartrapitem"), BEARTRAPITEM);
-//
-//        FabricDefaultAttributeRegistry.register(BEARTRAP, BearTrap.customAttributes());
-//
-//    }
+
+    public static Supplier<Item> BEARTRAPITEM;
+    public static Supplier<EntityType<BearTrap>> BEARTRAP;
+
+    public static void init() {
+        BEARTRAPITEM = registerItem("beartrapitem", new TrapItem(new Item.Properties(), Component.translatable("item.trapperpelts.beartrapdesc").withStyle(ChatFormatting.RED), Component.translatable("item.trapperpelts.beartrapdesc2").withStyle(ChatFormatting.RED)));
+        BEARTRAP = registerBearTrapEntityType("beartrap", EntityType.Builder.of(BearTrap::new, MobCategory.MONSTER).sized(0.8f, 1).build("beartrap"));
+
+        FabricDefaultAttributeRegistry.register(BEARTRAP.get(), BearTrap.customAttributes());
+    }
+
+    private static Supplier<Item> registerItem(String name, Item item) {
+        Item registered = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name), item);
+        return () -> registered;
+    }
+
+    private static Supplier<EntityType<BearTrap>> registerBearTrapEntityType(String name, EntityType<?> entityType) {
+        EntityType<?> registered = Registry.register(BuiltInRegistries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name), entityType);
+        return () -> (EntityType<BearTrap>) registered;
+    }
 
 }

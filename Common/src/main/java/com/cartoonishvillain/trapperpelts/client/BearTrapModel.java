@@ -17,7 +17,7 @@ import net.minecraft.world.entity.Entity;
 
 public class BearTrapModel<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation BEARTRAPLAYERLOCATION = new ModelLayerLocation(new ResourceLocation("modid", "beartrapmodel"), "main");
+	public static final ModelLayerLocation BEARTRAPLAYERLOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("trapperpelts", "beartrapmodel"), "main");
 	private final ModelPart west;
 	private final ModelPart center;
 	private final ModelPart east;
@@ -93,7 +93,7 @@ public class BearTrapModel<T extends Entity> extends EntityModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int i2) {
 		west.render(poseStack, buffer, packedLight, packedOverlay);
 		center.render(poseStack, buffer, packedLight, packedOverlay);
 		east.render(poseStack, buffer, packedLight, packedOverlay);

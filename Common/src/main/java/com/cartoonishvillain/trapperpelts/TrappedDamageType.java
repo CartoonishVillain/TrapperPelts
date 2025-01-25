@@ -6,5 +6,5 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageType;
 
 public class TrappedDamageType {
-    public static final ResourceKey<DamageType> TRAPPED =  ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(Constants.MOD_ID, "trapperdamage"));
+    public static final ResourceKey<DamageType> TRAPPED =  ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "trapperdamage"));
 }

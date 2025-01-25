@@ -3,26 +3,26 @@ package com.cartoonishvillain.trapperpelts.platform;
 import com.cartoonishvillain.trapperpelts.BearTrap;
 import com.cartoonishvillain.trapperpelts.Register;
 import com.cartoonishvillain.trapperpelts.platform.services.IPlatformHelper;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.entity.EntityType;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.loading.FMLLoader;
 
-public class FabricPlatformHelper implements IPlatformHelper {
+public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public String getPlatformName() {
-        return "Fabric";
+        return "NeoForge";
     }
 
     @Override
     public boolean isModLoaded(String modId) {
-
-        return FabricLoader.getInstance().isModLoaded(modId);
+        return ModList.get().isLoaded(modId);
     }
 
     @Override
     public boolean isDevelopmentEnvironment() {
 
-        return FabricLoader.getInstance().isDevelopmentEnvironment();
+        return !FMLLoader.isProduction();
     }
 
     @Override
