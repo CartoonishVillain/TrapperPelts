@@ -1,0 +1,22 @@
+{
+  "values": [
+    "minecraft:silverfish",
+    "minecraft:player",
+    "minecraft:endermite",
+    "minecraft:rabbit",
+    "minecraft:chicken",
+    "minecraft:bee",
+    "minecraft:axolotl",
+    "minecraft:cat",
+    "minecraft:frog",
+    "minecraft:bat",
+    "minecraft:cave_spider",
+    "minecraft:cod",
+    "minecraft:ocelot",
+    "minecraft:parrot",
+    "minecraft:pufferfish",
+    "minecraft:salmon",
+    "minecraft:tropical_fish"
+  ],
+  "replace": false
+}

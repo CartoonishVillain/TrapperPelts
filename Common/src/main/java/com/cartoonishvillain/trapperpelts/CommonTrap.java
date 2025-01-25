@@ -1,5 +1,8 @@
 package com.cartoonishvillain.trapperpelts;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
 import java.util.ArrayList;
@@ -11,7 +14,8 @@ public class CommonTrap {
     // game has no mechanism to load tooltip listeners so this must be
     // invoked from a mod loader specific project like Forge or Fabric.
 
-    public static ArrayList<EntityType> SMALLGAME = new ArrayList<>(List.of(EntityType.SILVERFISH, EntityType.PLAYER, EntityType.ENDERMITE, EntityType.RABBIT, EntityType.CHICKEN, EntityType.BEE, EntityType.AXOLOTL, EntityType.CAT, EntityType.WITHER, EntityType.ENDER_DRAGON));
+    public static final TagKey<EntityType<?>> SMALLGAME = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "trap_small_game"));
+    public static final TagKey<EntityType<?>> NOGAME = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "trap_no_game"));
 
     public static void init() {
 

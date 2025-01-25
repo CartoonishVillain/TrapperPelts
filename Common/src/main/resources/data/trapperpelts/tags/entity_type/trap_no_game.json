@@ -1,0 +1,20 @@
+{
+  "values": [
+    "minecraft:skeleton",
+    "minecraft:stray",
+    "minecraft:bogged",
+    "minecraft:slime",
+    "minecraft:magma_cube",
+    "minecraft:boat",
+    "minecraft:breeze",
+    "minecraft:blaze",
+    "minecraft:ender_dragon",
+    "minecraft:iron_golem",
+    "minecraft:minecart",
+    "minecraft:snow_golem",
+    "minecraft:vex",
+    "minecraft:warden",
+    "minecraft:wither"
+  ],
+  "replace": false
+}
