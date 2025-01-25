@@ -15,13 +15,13 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -88,7 +88,12 @@ public class BearTrap extends Mob {
     public void setTriggerCount(int count) {this.entityData.set(TRIGGERCOUNT, count);}
 
     @Override
-    public void push(Entity victim) {
+    public boolean isPushable() {
+        return false;
+    }
+
+    @Override
+    protected void doPush(Entity victim) {
         if(!getTriggered() && primingTime <= 0 && !this.level().isClientSide) {
             Holder.Reference<DamageType> damageType = this.level().registryAccess()
                     .registryOrThrow(Registries.DAMAGE_TYPE)
@@ -101,6 +106,19 @@ public class BearTrap extends Mob {
 
             if(victim.isAlive() && victim instanceof LivingEntity) {
                 ((LivingEntity) victim).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 70, 1));
+            }
+
+            if (!victim.isAlive()) {
+                ItemStack stack = ItemStack.EMPTY;
+                int num = victim.getRandom().nextInt(4);
+                if (victim.getType().is(CommonTrap.NOGAME)) {
+                    //do nothing, as there is no leather attached to the entity, or it was too hard for the bear trap to pull off.
+                } else if (victim.getType().is(CommonTrap.SMALLGAME)) {
+                    stack = new ItemStack(Items.RABBIT_HIDE, num+1);
+                } else {
+                    stack = new ItemStack(Items.LEATHER, num+1);
+                }
+                this.setItemSlot(EquipmentSlot.MAINHAND, stack);
             }
         }
     }
@@ -120,16 +138,28 @@ public class BearTrap extends Mob {
         if(resetTime > 0){
             resetTime--;
             //If this causes the reset time to be 0...
-            if(resetTime > 0){
+            if(resetTime <= 0){
                 this.level().playSound(null, this, SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.5f, 1);
-                this.setTriggered(false);
-            }
-        }
+                if (getTriggerCount() >= 3) {
+                    this.remove(RemovalReason.DISCARDED);
+                } else {
+                    this.setTriggered(false);
+                }
 
-        if(getTriggered() && getTriggerCount() >= 3){
-            timeAfterTrigger--;
-            if(timeAfterTrigger <= 0){
-                this.remove(RemovalReason.DISCARDED);
+                if (!this.level().isClientSide) {
+                    ItemEntity itemEntity = null;
+
+                    ItemStack itemStack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+
+                    if (itemStack != ItemStack.EMPTY) {
+                        itemEntity = new ItemEntity(this.level(), this.getX(), this.getY()+1, this.getZ(), itemStack);
+                    }
+
+                    if (itemEntity != null) {
+                        this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                        this.level().addFreshEntity(itemEntity);
+                    }
+                }
             }
         }
     }
@@ -147,7 +177,7 @@ public class BearTrap extends Mob {
 
     @Override
     protected InteractionResult mobInteract(Player p_21472_, InteractionHand p_21473_) {
-        if(!p_21472_.level().isClientSide && p_21473_.equals(InteractionHand.MAIN_HAND) && timeAfterTrigger >= 20 && !(getTriggerCount() >= 3) && getTriggered()){
+        if(!p_21472_.level().isClientSide && p_21473_.equals(InteractionHand.MAIN_HAND) && timeAfterTrigger >= 20 && getTriggered()){
             resetTime = 10;
         }
 
