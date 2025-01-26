@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "i i",
-    " S ",
-    "i i"
+    "iii",
+    " S "
   ],
   "key": {
     "i": {
@@ -14,7 +13,7 @@
     }
   },
   "result": {
-    "item": "trapperpelts:beartrapitem",
+    "id": "trapperpelts:beartrapitem",
     "count": 1
   }
 }
